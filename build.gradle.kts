@@ -1,5 +1,6 @@
 plugins {
-    id("java")
+    id( "java" )
+    id( "maven-publish")
 }
 
 group = "me.apotterhead"
@@ -17,4 +18,12 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
 }
