@@ -1,8 +1,8 @@
 // Craig Foulkrod
-// 06082026-06092026
+// 06082026-06222026
 
 package me.apotterhead.cheers.vars;
 
 public interface SerialVariable {
-    String toString();
+        String getName();
 }

@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06082026-06202026
+// 06082026-06232026
 
 package me.apotterhead.cheers;
 
@@ -10,7 +10,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.UUID;
 import me.apotterhead.cheers.vars.SerialArray;
-import me.apotterhead.cheers.vars.SerialArrayVariable;
 import me.apotterhead.cheers.vars.SerialObject;
 import me.apotterhead.cheers.vars.SerialObjectVariable;
 import me.apotterhead.cheers.vars.SerialPrimitive;
@@ -58,18 +57,16 @@ public final class Serializer {
             }
             
             if( map.contains( field.get( obj ) ) ) {
-                if( field.get( obj ).getClass().isArray() ) sObj.addVariable( new SerialArrayVariable( field.getName(), map.get( field.get( obj ) ).getUUID() ) );
-                else sObj.addVariable( new SerialObjectVariable( field.getName(), map.get( field.get( obj ) ).getUUID() ) );
+                sObj.addVariable( new SerialObjectVariable( field.getName(), map.get( field.get( obj ) ).getUUID() ) );
                 continue;
             }
 
-            if( field.get( obj ).getClass().isArray() ) {
-                SerialArray varSObj = serializeArray( field.get( obj ), map );
-                sObj.addVariable( new SerialArrayVariable( field.getName(), varSObj.getUUID() ) );
-            } else {
-                SerialObject varSObj = serializeObject( field.get( obj ), map );
-                sObj.addVariable( new SerialObjectVariable( field.getName(), varSObj.getUUID() ) );
-            }
+            SerialObject varSObj;
+            if( field.get( obj ).getClass().isArray() )
+                varSObj = serializeArray( field.get( obj ), map );
+            else
+                varSObj = serializeObject( field.get( obj ), map );
+            sObj.addVariable( new SerialObjectVariable( field.getName(), varSObj.getUUID() ) );
         }
 
         return sObj;
@@ -108,9 +105,6 @@ public final class Serializer {
         else if( cls.equals( String[].class ) )
             for( int i = 0; i < Array.getLength( array ); i++ )
                 sRay.addVariable( new SerialPrimitive( Integer.toString( i ), (String) Array.get( array, i ) ) );
-        else if( cls.arrayType().isEnum() )
-            for( int i = 0; i < Array.getLength( array ); i++ )
-                sRay.addVariable( new SerialPrimitive( Integer.toString( i ), (Enum<?>) Array.get( array, i ) ) );
         else {
             for( int i = 0; i < Array.getLength( array ); i++ ) {
                 Object obj = Array.get( array, i );
@@ -126,25 +120,18 @@ public final class Serializer {
                     sRay.addVariable( new SerialPrimitive( Integer.toString( i ), (String) Array.get( array, i ) ) );
                     continue;
                 }
-                
-                if( objCls.isEnum() ) {
-                    sRay.addVariable( new SerialPrimitive( Integer.toString( i ), (Enum<?>) Array.get( array, i ) ) );
-                    continue;
-                }
 
                 if( map.contains( obj ) ) {
-                    if( objCls.isArray() ) sRay.addVariable( new SerialArrayVariable( Integer.toString( i ), map.get( obj ).getUUID() ) );
-                    else sRay.addVariable( new SerialObjectVariable( Integer.toString( i ), map.get( obj ).getUUID() ) );
+                    sRay.addVariable( new SerialObjectVariable( Integer.toString( i ), map.get( obj ).getUUID() ) );
                     continue;
                 }
 
-                if( objCls.isArray() ) {
-                    SerialArray sObj = serializeArray( obj, map );
-                    sRay.addVariable( new SerialArrayVariable( Integer.toString( i ), sObj.getUUID() ) );
-                } else {
-                    SerialObject sObj = serializeObject( obj, map );
-                    sRay.addVariable( new SerialObjectVariable( Integer.toString( i ), sObj.getUUID() ) );
-                }
+                SerialObject sObj;
+                if( objCls.isArray() )
+                    sObj = serializeArray( obj, map );
+                else
+                    sObj = serializeObject( obj, map );
+                sRay.addVariable( new SerialObjectVariable( Integer.toString( i ), sObj.getUUID() ) );
             }
         }
         
@@ -152,7 +139,7 @@ public final class Serializer {
     }
     
     private static boolean isPrimitive( Class<?> cls ) {
-        return cls.isPrimitive() || cls.equals( String.class ) || cls.isEnum();
+        return cls.isPrimitive() || cls.equals( String.class );
     }
 
     private static SerialPrimitive serializePrimitive( Object obj, Field field ) throws IllegalAccessException {
@@ -176,8 +163,6 @@ public final class Serializer {
             return new SerialPrimitive( field.getName() );
         else if( field.getType().equals( String.class ) )
             return new SerialPrimitive( field.getName(), (String) field.get( obj ) );
-        else if( field.getType().isEnum() )
-            return new SerialPrimitive( field.getName(), (Enum<?>)field.get( obj ) );
         
         throw new IllegalArgumentException( "Field is not a primitive type" );
     }

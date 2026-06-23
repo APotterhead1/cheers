@@ -18,11 +18,12 @@ class SerializerTest {
     
     @Test
     void serialize() throws IllegalAccessException {
-//        TestSerialObject2 testObj2 = new TestSerialObject2();
-//        testObj2.obj.setObj( testObj2 );
-//        System.out.println( Serializer.serialize( testObj2 ) );
+        TestSerialObject2 testObj2 = new TestSerialObject2();
+        testObj2.obj.setObj( testObj2 );
+        System.out.println( Serializer.serialize( testObj2 ) );
         
 //        List<String> lst = List.of( "Test1", "Test2", "Test3", "Test4" );
+//        System.out.println( lst );
 //        System.out.println( Serializer.serialize( lst ));
 
 //        int[] ray = { 0, 1, 2, 3, 4, 5, 6 };
@@ -30,7 +31,7 @@ class SerializerTest {
         
 //        System.out.println( Serializer.serialize( TestEnum.TEST1 ) );
         
-        System.out.println( Serializer.serialize( new TestRecord( 5, 'a', "This is a test of the emergency broadcast system" ) ) );
+//        System.out.println( Serializer.serialize( new TestRecord( 5, 'a', "This is a test of the emergency broadcast system" ) ) );
     }
     
     public static class TestSerialObject {
@@ -45,6 +46,7 @@ class SerializerTest {
     
     public static class TestSerialObject2 {
         private TestSerialObject obj = new TestSerialObject();
+        public TestEnum en = TestEnum.TEST2;
     }
     
     public static enum TestEnum {

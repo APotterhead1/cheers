@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06082026-06202026
+// 06082026-06232026
 
 package me.apotterhead.cheers.vars;
 
@@ -58,20 +58,20 @@ public class SerialPrimitive implements SerialVariable {
     
     public SerialPrimitive( String name, String value) {
         this.name = name;
-        this.value = value.replace( "\n", "\\n" ).replace( "\t", "\\t" ).replace( "\"", "\\\"" ).replace( "\\", "\\\\" ).replace( "\r", "\\r" ).replace( "\b", "\\b" ).replace( "\f", "\\f" );
+        this.value = value.replace( "\\", "\\\\" ).replace( "\n", "\\n" ).replace( "\t", "\\t" ).replace( "\"", "\\\"" ).replace( "\r", "\\r" ).replace( "\b", "\\b" ).replace( "\f", "\\f" );
         this.type = SerialPrimitiveType.STRING;
-    }
-    
-    public SerialPrimitive( String name, Enum<?> value ) {
-        this.name = name;
-        this.value = value.name();
-        this.type = SerialPrimitiveType.ENUM;
     }
     
     public SerialPrimitive( String name ) {
         this.name = name;
         this.value = "null";
         this.type = SerialPrimitiveType.NULL;
+    }
+    
+    public SerialPrimitive( String name, String value, SerialPrimitiveType type ) {
+        this.name = name;
+        this.value = value;
+        this.type = type;
     }
     
     public String getName() {
@@ -115,11 +115,32 @@ public class SerialPrimitive implements SerialVariable {
     }
     
     public String getString() {
-        return value;
+        StringBuilder sb = new StringBuilder();
+        for( int i = 0; i < value.length(); i++ ) {
+            if( value.charAt( i ) != '\\' ) {
+                sb.append( value.charAt( i ) );
+                continue;
+            }
+            i++;
+            if( i == value.length() ) continue;
+            
+            switch( value.charAt( i ) ) {
+                case 'n' -> sb.append( '\n' );
+                case 't' -> sb.append( '\t' );
+                case '"' -> sb.append( '\"' );
+                case '\\' -> sb.append( '\\' );
+                case 'r' -> sb.append( '\r' );
+                case 'b' -> sb.append( '\b' );
+                case 'f' -> sb.append( '\f' );
+                default -> {}
+            }
+        }
+        
+        return sb.toString();
     }
     
-    public <T extends Enum<T>> Enum<T> getEnum( Class<T> cls ) {
-        return Enum.valueOf( cls, value );
+    public String getRawValue() {
+        return value;
     }
     
     public String toString() {
@@ -136,7 +157,6 @@ public class SerialPrimitive implements SerialVariable {
         DOUBLE,
         CHAR,
         STRING,
-        ENUM,
         NULL
     }
 }
