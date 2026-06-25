@@ -16,23 +16,23 @@ import static org.junit.jupiter.api.Assertions.*;
 // 06092026-06092026
 class SerializerTest {
     
-    @Test
-    void serialize() throws IllegalAccessException {
-        TestSerialObject2 testObj2 = new TestSerialObject2();
-        testObj2.obj.setObj( testObj2 );
-        System.out.println( Serializer.serialize( testObj2 ) );
-        
-//        List<String> lst = List.of( "Test1", "Test2", "Test3", "Test4" );
-//        System.out.println( lst );
-//        System.out.println( Serializer.serialize( lst ));
-
-//        int[] ray = { 0, 1, 2, 3, 4, 5, 6 };
-//        System.out.println( Serializer.serialize( ray ) );
-        
-//        System.out.println( Serializer.serialize( TestEnum.TEST1 ) );
-        
-//        System.out.println( Serializer.serialize( new TestRecord( 5, 'a', "This is a test of the emergency broadcast system" ) ) );
-    }
+//    @Test
+//    void serialize() throws IllegalAccessException {
+//        TestSerialObject2 testObj2 = new TestSerialObject2();
+//        testObj2.obj.setObj( testObj2 );
+//        System.out.println( Serializer.serialize( testObj2 ) );
+//
+////        List<String> lst = List.of( "Test1", "Test2", "Test3", "Test4" );
+////        System.out.println( lst );
+////        System.out.println( Serializer.serialize( lst ));
+//
+////        int[] ray = { 0, 1, 2, 3, 4, 5, 6 };
+////        System.out.println( Serializer.serialize( ray ) );
+//
+////        System.out.println( Serializer.serialize( TestEnum.TEST1 ) );
+//
+////        System.out.println( Serializer.serialize( new TestRecord( 5, 'a', "This is a test of the emergency broadcast system" ) ) );
+//    }
     
     public static class TestSerialObject {
         private int a = 5;

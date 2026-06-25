@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06082026-06232026
+// 06082026-06252026
 
 package me.apotterhead.cheers;
 
@@ -16,10 +16,10 @@ import me.apotterhead.cheers.vars.SerialPrimitive;
 
 public final class Serializer {
     
-    public static String serialize( Object object ) throws IllegalAccessException {
+    public static String serialize( Object object, Version version ) throws IllegalAccessException {
         if( object == null ) return "";
         StringBuilder sb = new StringBuilder();
-//        sb.append( version.getCurrent().name() ).append( ";\n" );
+        sb.append( '"' ).append( version.getCurrentVersion() ).append( "\"\n" );
         
         ObjectMap map = new ObjectMap();
         
