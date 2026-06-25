@@ -52,4 +52,15 @@ publishing {
             from(components["java"])
         }
     }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/APotterhead1/cheers")
+            credentials {
+                username = findProperty("gpr.user") as String
+                password = findProperty("gpr.key") as String
+            }
+        }
+    }
 }
