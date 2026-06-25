@@ -145,39 +145,7 @@ public final class Deserializer {
         Modification[] modifications = version.getModifications( objectVersion );
         
         for( Modification modification : modifications )
-            modification.apply( getSerialObjectFromPath( serialObjects, modification.getPath() ) );
-    }
-    
-    private static SerialObject getSerialObjectFromPath( List<SerialObject> serialObjects, String path ) {
-        String[] parts = path.split( "\\." );
-        
-        if( parts.length == 0 ) throw new InvalidDeserializationInputException( "Modification path was blank." );
-        
-        if( !parts[ 0 ].equals( "root" ) ) throw new InvalidDeserializationInputException( "Modification path \"" + path + "\" can not be found." );
-        
-        SerialObject currentSerialObject = serialObjects.getFirst();
-        for( int i = 1; i < parts.length; i++ ) {
-            try {
-                SerialVariable var = getSerialVariableFromName( parts[ i ], currentSerialObject );
-                if( var instanceof SerialObjectVariable ) {
-                    String uuid = ( (SerialObjectVariable) var ).getUUID();
-                    boolean found = false;
-                    for( SerialObject varSObj : serialObjects ) {
-                        if( varSObj.getUUID().equals( uuid ) ) {
-                            currentSerialObject = varSObj;
-                            found = true;
-                            break;
-                        }
-                    }
-                    if( !found ) throw new Exception();
-                } else throw new Exception();
-                
-            } catch( Exception _ ) {
-                throw new InvalidDeserializationInputException( "Modification path \"" + path + "\" can not be found." );
-            }
-        }
-        
-        return currentSerialObject;
+            modification.apply( serialObjects );
     }
     
     private static Map<String, Object> generateObjects( List<SerialObject> serialObjects ) {
