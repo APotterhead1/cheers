@@ -25,6 +25,7 @@ public final class Deserializer {
     
     public static Object deserialize( String input, Version version ) {
         if( input == null ) throw new InvalidDeserializationInputException( "String can not be null." );
+        if( input.isEmpty() ) return null;
         
         String objectVersion = getObjectVersion( input );
         List<SerialObject> serialObjects = generateSerialObjects( input );
