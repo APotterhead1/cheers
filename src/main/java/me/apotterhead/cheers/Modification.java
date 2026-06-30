@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06232026-06272026
+// 06232026-06292026
 
 package me.apotterhead.cheers;
 
@@ -10,68 +10,68 @@ import me.apotterhead.cheers.vars.SerialObjectVariable;
 import java.util.List;
 
 /**
- * <code>Modification</code> is an interface that represents a change in a
- * <code>class</code> between versions. Each modification is applied during the
- * deserialization process to make an old <code>Object</code> compatible with the
- * lastest version its respective <code>class</code>.
+ * {@code Modification} is an interface that represents a change in a
+ * {@code class} between versions. Each modification is applied during the
+ * deserialization process to make an old {@code Object} compatible with the
+ * lastest version its respective{@code class}.
  * <p>
- * Each <code>Modification</code> instance must contain a path leading to the
- * {@link SerialObject} that it is modifying. The path must start with <code>"root"</code>
- * representing the <code>Object</code> that was put into the {@link Serializer}.
+ * Each {@code Modification} instance must contain a path leading to the
+ * {@link SerialObject} that it is modifying. The path must start with {@code "root"}
+ * representing the {@code Object} that was put into the {@link Serializer}.
  * The path then goes down the map through variable names, with each step separated
- * by a <code>"."</code>. An example of a valid path is
- * <code>"root.nestedObjectVariable.nestedNestedObjectVariable"</code>.
+ * by a {@code "."}. An example of a valid path is
+ * {@code "root.nestedObjectVariable.nestedNestedObjectVariable"}.
  *
  * @since 1.0.0
  */
 public interface Modification {
     /**
-     * Returns a <code>String</code> representation of the path to the {@link SerialObject}
-     * that this <code>Modification</code> is supposed to modify.
+     * Returns a {@code String} representation of the path to the {@link SerialObject}
+     * that this {@code Modification} is supposed to modify.
      * <p>
-     * The path must start with <code>"root"</code> representing the <code>Object</code>
+     * The path must start with {@code "root"} representing the {@code Object}
      * that was put into the {@link Serializer}. The path then goes down the map through variable
-     * names, with each step separated by a <code>"."</code>.
+     * names, with each step separated by a {@code "."}.
      * <p>
      * An example of a valid path is
-     * <code>"root.nestedObjectVariable.nestedNestedObjectVariable"</code>.
+     * {@code "root.nestedObjectVariable.nestedNestedObjectVariable"}.
      *
-     * @return a <code>String</code> representation of the path to the
-     * <code>SerialObject</code> that this <code>Modification</code> is modifying
+     * @return a {@code String} representation of the path to the
+     * {@code SerialObject} that this {@code Modification} is modifying
      */
     String getPath();
     
     /**
-     * Modifies the {@link SerialObject} at the path given by {@link #getPath()} in
+     * Modifies the {@link SerialObject} at the path given by {@link #getPath} in
      * such a way that it is compatible with the latest version of the class. This
      * normally entails either adding or removing variables, changing variable datatypes,
      * or remaining variables.
      *
-     * @param serialObjects a <code>List</code> containing a <code>SerialObject</code>
-     *                      for every <code>Object</code> that is referenced at any point
-     *                      in the <code>Object</code> that was serialized, including the
-     *                      root <code>SerialObject</code>
+     * @param serialObjects a {@code List} containing a {@code SerialObject}
+     *                      for every {@code Object} that is referenced at any point
+     *                      in the {@code Object} that was serialized, including the
+     *                      root {@code SerialObject}
      */
     void apply( List<SerialObject> serialObjects );
     
     
     /**
-     * Returns the {@link SerialObject} from the <code>List</code> <code>serialObjects</code>
-     * that corresponds to the path given by <code>path</code>.
+     * Returns the {@link SerialObject} from the {@code List} {@code serialObjects}
+     * that corresponds to the path given by {@code path}.
      *
-     * @param serialObjects a <code>List</code> containing a <code>SerialObject</code>
-     *                      for every <code>Object</code> that is referenced at any point
-     *                      in the <code>Object</code> that was serialized, including the
-     *                      root <code>SerialObject</code>
-     * @param path a <code>String</code> representing the path to the
-     *             <code>SerialObject</code>. The path must start with <code>"root"</code>
-     *             representing the <code>Object</code> that was put into the
+     * @param serialObjects a {@code List} containing a {@code SerialObject}
+     *                      for every {@code Object} that is referenced at any point
+     *                      in the {@code Object} that was serialized, including the
+     *                      root {@code SerialObject}
+     * @param path a {@code String} representing the path to the
+     *             {@code SerialObject}. The path must start with {@code path}
+     *             representing the {@code Object} that was put into the
      *             {@link Serializer}. The path then goes down the map through variable
-     *             names, with each step separated by a <code>"."</code>. An example of a
+     *             names, with each step separated by a {@code "."}. An example of a
      *             valid path is
-     *             <code>"root.nestedObjectVariable.nestedNestedObjectVariable"</code>
-     * @return the <code>SerialObject</code> that corresponds to the path given by
-     * <code>path</code> from <code>serialObjects</code>
+     *             {@code "root.nestedObjectVariable.nestedNestedObjectVariable"}
+     * @return the {@code SerialObject} that corresponds to the path given by
+     * {@code path} from {@code serialObjects}
      */
     static SerialObject getSerialObjectFromPath( List<SerialObject> serialObjects, String path ) {
         String[] parts = path.split( "\\." );

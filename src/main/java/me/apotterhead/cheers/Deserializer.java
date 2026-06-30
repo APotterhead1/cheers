@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06202026-06252026
+// 06202026-06292026
 
 package me.apotterhead.cheers;
 
@@ -22,11 +22,11 @@ import me.apotterhead.cheers.vars.SerialPrimitive.SerialPrimitiveType;
 import org.objenesis.ObjenesisStd;
 
 /**
- * <code>Deserializer</code> is a utility class that houses all the logic necessary for
+ * {@code Deserializer} is a utility class that houses all the logic necessary for
  * deserialization of Strings provided by this library.
  * <p>
  * This class is not meant to be instantiated,
- * and all methods are <code>static</code>.
+ * and all methods are {@code static}.
  *
  * @since 1.0.0
  */
@@ -35,8 +35,8 @@ public final class Deserializer {
     private Deserializer() {}
     
     /**
-     * Returns the deserialized <code>Object</code> given a serialized
-     * <code>String</code> and relative <code>Version</code>. The <code>String</code>
+     * Returns the deserialized {@code Object} given a serialized
+     * {@code String} and relative {@code Version}. The {@code String}
      * must be formatted correctly, normally by having it be directly outputted from
      * {@link Serializer#serialize(Object, Version)}.
      * <p>
@@ -44,16 +44,16 @@ public final class Deserializer {
      * open to reflection by this module through JVM arguments. See the README file
      * for this project for more information.
      * <p>
-     * Inputting an empty <code>String</code> returns <code>null</code>.
+     * Inputting an empty {@code String} returns {@code null}.
      *
-     * @param input a <code>String</code> representing the serialized <code>Object</code>.
-     *              An empty <code>String</code> will return <code>null</code>
-     * @param version a <code>Version</code> that contains the version history of the
-     *                serialized <code>Object</code>
-     * @return an <code>Object</code> represented by the inputted <code>String</code>
-     * and <code>Version</code> modifications
-     * @throws InvalidDeserializationInputException if the input <code>String</code> is
-     * unable to be turned into an <code>Object</code>
+     * @param input a {@code String} representing the serialized {@code Object}.
+     *              An empty {@code String} will return {@code null}>
+     * @param version a {@code Version} that contains the version history of the
+     *                serialized {@code Object}
+     * @return an {@code Object} represented by the inputted {@code String}
+     * and {@code Version} modifications
+     * @throws InvalidDeserializationInputException if the input {@code String} is
+     * unable to be turned into an {@code Object}
      */
     public static Object deserialize( String input, Version version ) {
         if( input == null ) throw new InvalidDeserializationInputException( "String can not be null." );

@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06082026-06252026
+// 06082026-06292026
 
 package me.apotterhead.cheers;
 
@@ -15,12 +15,12 @@ import me.apotterhead.cheers.vars.SerialObjectVariable;
 import me.apotterhead.cheers.vars.SerialPrimitive;
 
 /**
- * <code>Serializer</code> is a utility class that houses all the logic necessary for
- * the serialization of any java <code>Object</code>. It supports the serialization of
+ * {@code Serializer} is a utility class that houses all the logic necessary for
+ * the serialization of any java {@code Object}. It supports the serialization of
  * cycles in a human-readable format and is capable of handling serialization over many
  * versions.
  * <p>
- * This class is not meant to be instantiated, and all methods are <code>static</code>.
+ * This class is not meant to be instantiated, and all methods are {@code static}.
  *
  * @since 1.0.0
  */
@@ -29,21 +29,21 @@ public final class Serializer {
     private Serializer() {}
     
     /**
-     * Returns a <code>String</code> representation of the provided <code>Object</code>.
-     * The String representation may be turned back into an <code>Object</code> using
+     * Returns a {@code String} representation of the provided {@code Object}.
+     * The String representation may be turned back into an {@code Object} using
      * {@link Deserializer#deserialize(String, Version)}.
      * <p>
      * To function correctly, the serialized class and all subclasses must be open to
      * reflection by this module through JVM arguments. See the README file for this
      * project for more information.
      * <p>
-     * Inputting <code>null</code> will return an empty <code>String</code>.
+     * Inputting {@code null} will return an empty {@code String}.
      *
-     * @param object the <code>Object</code> to be serialized into a <code>String</code>.
-     *               If <code>null</code>, an empty <code>String</code> will be returned
-     * @param version a <code>Version</code> that can be used in the future to check if
+     * @param object the {@code Object} to be serialized into a {@code String}.
+     *               If {@code null}, an empty {@code String} will be returned
+     * @param version a {@code Version} that can be used in the future to check if
      *                modifications have been made to classes serialized
-     * @return a <code>String</code> representation of the original <code>Object</code>.
+     * @return a {@code String} representation of the original {@code Object}.
      * @throws IllegalAccessException if the target module does not open to reflection
      */
     public static String serialize( Object object, Version version ) throws IllegalAccessException {
