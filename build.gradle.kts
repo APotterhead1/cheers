@@ -17,6 +17,10 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
+tasks.javadoc {
+    destinationDir = file( layout.projectDirectory.dir( "docs" ) )
+}
+
 tasks.test {
     useJUnitPlatform()
     jvmArgs = listOf(
