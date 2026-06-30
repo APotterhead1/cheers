@@ -1,5 +1,14 @@
 // Craig Foulkrod
-// 06202026-06292026
+// 06202026-06302026
+
+/*
+
+    Copyright (c) 2026 Craig Foulkrod
+    
+    License under the MIT License
+    See LICENSE file the project root for full license information
+    
+ */
 
 package me.apotterhead.cheers;
 
