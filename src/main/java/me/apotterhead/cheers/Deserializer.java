@@ -1,5 +1,14 @@
 // Craig Foulkrod
-// 06202026-06252026
+// 06202026-06302026
+
+/*
+
+    Copyright (c) 2026 Craig Foulkrod
+    
+    License under the MIT License
+    See LICENSE file the project root for full license information
+    
+ */
 
 package me.apotterhead.cheers;
 
@@ -21,8 +30,40 @@ import me.apotterhead.cheers.vars.SerialPrimitive;
 import me.apotterhead.cheers.vars.SerialPrimitive.SerialPrimitiveType;
 import org.objenesis.ObjenesisStd;
 
+/**
+ * {@code Deserializer} is a utility class that houses all the logic necessary for
+ * deserialization of Strings provided by this library.
+ * <p>
+ * This class is not meant to be instantiated,
+ * and all methods are {@code static}.
+ *
+ * @since 1.0.0
+ */
 public final class Deserializer {
     
+    private Deserializer() {}
+    
+    /**
+     * Returns the deserialized {@code Object} given a serialized
+     * {@code String} and relative {@code Version}. The {@code String}
+     * must be formatted correctly, normally by having it be directly outputted from
+     * {@link Serializer#serialize(Object, Version)}.
+     * <p>
+     * To function correctly, the serialized class and all subclasses must be
+     * open to reflection by this module through JVM arguments. See the README file
+     * for this project for more information.
+     * <p>
+     * Inputting an empty {@code String} returns {@code null}.
+     *
+     * @param input a {@code String} representing the serialized {@code Object}.
+     *              An empty {@code String} will return {@code null}>
+     * @param version a {@code Version} that contains the version history of the
+     *                serialized {@code Object}
+     * @return an {@code Object} represented by the inputted {@code String}
+     * and {@code Version} modifications
+     * @throws InvalidDeserializationInputException if the input {@code String} is
+     * unable to be turned into an {@code Object}
+     */
     public static Object deserialize( String input, Version version ) {
         if( input == null ) throw new InvalidDeserializationInputException( "String can not be null." );
         if( input.isEmpty() ) return null;

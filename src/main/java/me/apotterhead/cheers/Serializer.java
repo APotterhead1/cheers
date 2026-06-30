@@ -1,5 +1,14 @@
 // Craig Foulkrod
-// 06082026-06252026
+// 06082026-06302026
+
+/*
+
+    Copyright (c) 2026 Craig Foulkrod
+    
+    License under the MIT License
+    See LICENSE file the project root for full license information
+    
+ */
 
 package me.apotterhead.cheers;
 
@@ -14,8 +23,38 @@ import me.apotterhead.cheers.vars.SerialObject;
 import me.apotterhead.cheers.vars.SerialObjectVariable;
 import me.apotterhead.cheers.vars.SerialPrimitive;
 
+/**
+ * {@code Serializer} is a utility class that houses all the logic necessary for
+ * the serialization of any java {@code Object}. It supports the serialization of
+ * cycles in a human-readable format and is capable of handling serialization over many
+ * versions.
+ * <p>
+ * This class is not meant to be instantiated, and all methods are {@code static}.
+ *
+ * @since 1.0.0
+ */
 public final class Serializer {
     
+    private Serializer() {}
+    
+    /**
+     * Returns a {@code String} representation of the provided {@code Object}.
+     * The String representation may be turned back into an {@code Object} using
+     * {@link Deserializer#deserialize(String, Version)}.
+     * <p>
+     * To function correctly, the serialized class and all subclasses must be open to
+     * reflection by this module through JVM arguments. See the README file for this
+     * project for more information.
+     * <p>
+     * Inputting {@code null} will return an empty {@code String}.
+     *
+     * @param object the {@code Object} to be serialized into a {@code String}.
+     *               If {@code null}, an empty {@code String} will be returned
+     * @param version a {@code Version} that can be used in the future to check if
+     *                modifications have been made to classes serialized
+     * @return a {@code String} representation of the original {@code Object}.
+     * @throws IllegalAccessException if the target module does not open to reflection
+     */
     public static String serialize( Object object, Version version ) throws IllegalAccessException {
         if( object == null ) return "";
         StringBuilder sb = new StringBuilder();

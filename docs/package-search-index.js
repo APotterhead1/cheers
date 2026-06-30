@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"m":"me.apotterhead.cheers","l":"me.apotterhead.cheers"},{"m":"me.apotterhead.cheers","l":"me.apotterhead.cheers.vars"}];updateSearchResults();
