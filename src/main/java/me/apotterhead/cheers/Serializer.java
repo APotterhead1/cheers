@@ -84,7 +84,7 @@ public final class Serializer {
         for( Field field : fields ) {
             field.setAccessible( true );
             int modifier = field.getModifiers();
-            if( Modifier.isTransient( modifier ) || Modifier.isStatic( modifier ) ) continue;
+            if( Modifier.isStatic( modifier ) ) continue;
             if( isPrimitive( field.getType() ) ) {
                 sObj.addVariable( serializePrimitive( obj, field ) );
                 continue;
