@@ -201,6 +201,8 @@ java \
 
 ## Public API Overview
 
+For full documentation, see the [Javadocs](https://apotterhead1.github.io/cheers/docs).
+
 Main classes you will use:
 - `Serializer` — static method `serialize(Object object, Version version)` returns a String representation.
 - `Deserializer` — static method `deserialize(String input, Version version)` returns `Object` (cast to expected type).

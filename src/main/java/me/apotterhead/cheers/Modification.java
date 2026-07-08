@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06232026-06302026
+// 06232026-07072026
 
 /*
 
@@ -23,13 +23,6 @@ import java.util.List;
  * {@code class} between versions. Each modification is applied during the
  * deserialization process to make an old {@code Object} compatible with the
  * lastest version its respective{@code class}.
- * <p>
- * Each {@code Modification} instance must contain a path leading to the
- * {@link SerialObject} that it is modifying. The path must start with {@code "root"}
- * representing the {@code Object} that was put into the {@link Serializer}.
- * The path then goes down the map through variable names, with each step separated
- * by a {@code "."}. An example of a valid path is
- * {@code "root.nestedObjectVariable.nestedNestedObjectVariable"}.
  *
  * @since 1.0.0
  */
@@ -47,7 +40,12 @@ public interface Modification {
      *
      * @return a {@code String} representation of the path to the
      * {@code SerialObject} that this {@code Modification} is modifying
+     *
+     * @deprecated due to encouraging the inclusion of the path if necessary as a {@code String} in
+     * {@link #apply} and to discourage the use of this class in other instances.
      */
+    
+    @Deprecated( )
     String getPath();
     
     /**

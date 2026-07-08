@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "me.apotterhead"
-version = "1.0.1"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
@@ -48,6 +48,11 @@ tasks.test {
 //        "--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED",
 //        "--add-opens=java.base/jdk.internal.loader=ALL-UNNAMED"
     )
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 publishing {
