@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06202026-06302026
+// 06202026-07082026
 
 /*
 
@@ -312,7 +312,7 @@ public final class Deserializer {
         
         for( Field field : fields ) {
             int modifier = field.getModifiers();
-            if( Modifier.isTransient( modifier ) || Modifier.isStatic( modifier ) ) continue;
+            if( Modifier.isStatic( modifier ) ) continue;
             String illegalAccessExceptionMessage = "Field \"" + field.getName() + "\" in class \"" + cls.getName() + "\" is not accessible.";
             try {
                 field.setAccessible( true );
