@@ -169,13 +169,13 @@ JVM flags used in `build.gradle.kts` (example)
 tasks.test {
     useJUnitPlatform()
     jvmArgs = listOf(
-        "--add-opens=java.base/java.util=ALL-UNNAMED",
-        "--add-opens=java.base/java.lang=ALL-UNNAMED",
-        "--add-opens=java.base/java.io=ALL-UNNAMED",
-        "--add-opens=java.base/java.nio=ALL-UNNAMED",
-        "--add-opens=java.base/java.util.regex=ALL-UNNAMED",
-        "--add-opens=java.base/sun.nio.cs=ALL-UNNAMED",
-        "--add-opens=java.base/java.nio.charset=ALL-UNNAMED"
+        "--add-opens=java.base/java.util=me.apotterhead.cheers",
+        "--add-opens=java.base/java.lang=me.apotterhead.cheers",
+        "--add-opens=java.base/java.io=me.apotterhead.cheers",
+        "--add-opens=java.base/java.nio=me.apotterhead.cheers",
+        "--add-opens=java.base/java.util.regex=me.apotterhead.cheers",
+        "--add-opens=java.base/sun.nio.cs=me.apotterhead.cheers",
+        "--add-opens=java.base/java.nio.charset=me.apotterhead.cheers"
     )
 }
 ```
@@ -242,7 +242,7 @@ public interface Modification {
     String getPath();
     void apply(List<SerialObject> serialObjects);
 
-    // helper to locate a serial object by dotted path (root. ... )
+    // helper to locate a serial object by dotted path (root...)
     static SerialObject getSerialObjectFromPath(List<SerialObject> serialObjects, String path) {
         // provided by the library
     }
@@ -295,7 +295,7 @@ Best practices when writing `Modification`s
 - Use switch statement fall-through to chain modifications across versions. When upgrading from an older version, apply all necessary modifications and then fall through to return the array once you reach the current version.
 - Keep modification logic small and limited to structural changes (adding/removing variables, renaming variables, inserting new `SerialObject`s).
 - Ensure UUID uniqueness when adding new `SerialObject` instances into the `List<SerialObject>` (use e.g. `UUID.randomUUID().toString()`).
-- Test modifications with sample serialized data representing older versions to verify safe upgrade.
+- Test modifications with sample serialized data representing older versions to verify a safe upgrade.
 
 ## Error Handling & Debugging
 
