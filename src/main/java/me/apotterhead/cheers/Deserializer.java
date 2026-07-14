@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06202026-07082026
+// 06202026-07142026
 
 /*
 
@@ -63,6 +63,7 @@ public final class Deserializer {
      * and {@code Version} modifications
      * @throws InvalidDeserializationInputException if the input {@code String} is
      * unable to be turned into an {@code Object}
+     * @see #deserialize(String, Version, Class)
      */
     public static Object deserialize( String input, Version version ) {
         if( input == null ) throw new InvalidDeserializationInputException( "String can not be null." );
@@ -77,6 +78,39 @@ public final class Deserializer {
         populateObjects( serialObjects, objects );
         
         return objects.get( serialObjects.getFirst().getUUID() );
+    }
+    
+    /**
+     * Returns the deserialized {@code Object} of type {@code T} given a serialized
+     * {@code String} and relative {@code Version}. The {@code String}
+     * must be formatted correctly, normally by having it be directly outputted from
+     * {@link Serializer#serialize(Object, Version)}.
+     * <p>
+     * To function correctly, the serialized class and all subclasses must be
+     * open to reflection by this module through JVM arguments. See the README file
+     * for this project for more information.
+     * <p>
+     * Inputting an empty {@code String} returns {@code null}.
+     *
+     * @param input a {@code String} representing the serialized {@code Object}.
+     *              An empty {@code String} will return {@code null}>
+     * @param version a {@code Version} that contains the version history of the
+     *                serialized {@code Object}
+     * @param outputClass a {@code Class} that the deserialized {@code Object} must
+     *                    be an instance of
+     * @param <T> the type that the deserialized {@code Object} must be an instance of
+     * @return an {@code Object} of type {@code T} represented by the inputted
+     * {@code String} and {@code Version} modifications
+     * @throws InvalidDeserializationInputException if the input {@code String} is
+     * unable to be turned into an {@code Object}
+     * @see #deserialize(String, Version)
+     * @since 1.2.0
+     */
+    public static <T> T deserialize( String input, Version version, Class<T> outputClass ) {
+        Object obj = deserialize( input, version );
+        
+        if( outputClass.isInstance( obj ) ) return outputClass.cast( obj );
+        else throw new InvalidDeserializationInputException( outputClass.getName() + " does not match the class of the deserialized object" );
     }
     
     private static String getObjectVersion( String input ) {
