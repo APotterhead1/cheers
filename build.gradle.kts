@@ -3,8 +3,8 @@ plugins {
     id( "maven-publish")
 }
 
-group = "me.apotterhead"
-version = "1.2.0"
+group = "io.github.apotterhead1"
+version = "2.0.0"
 
 repositories {
     mavenCentral()
