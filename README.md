@@ -169,13 +169,13 @@ JVM flags used in `build.gradle.kts` (example)
 tasks.test {
     useJUnitPlatform()
     jvmArgs = listOf(
-        "--add-opens=java.base/java.util=me.apotterhead.cheers",
-        "--add-opens=java.base/java.lang=me.apotterhead.cheers",
-        "--add-opens=java.base/java.io=me.apotterhead.cheers",
-        "--add-opens=java.base/java.nio=me.apotterhead.cheers",
-        "--add-opens=java.base/java.util.regex=me.apotterhead.cheers",
-        "--add-opens=java.base/sun.nio.cs=me.apotterhead.cheers",
-        "--add-opens=java.base/java.nio.charset=me.apotterhead.cheers"
+        "--add-opens=java.base/java.util=io.github.apotterhead1.cheers",
+        "--add-opens=java.base/java.lang=io.github.apotterhead1.cheers",
+        "--add-opens=java.base/java.io=io.github.apotterhead1.cheers",
+        "--add-opens=java.base/java.nio=io.github.apotterhead1.cheers",
+        "--add-opens=java.base/java.util.regex=io.github.apotterhead1.cheers",
+        "--add-opens=java.base/sun.nio.cs=io.github.apotterhead1.cheers",
+        "--add-opens=java.base/java.nio.charset=io.github.apotterhead1.cheers"
     )
 }
 ```

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"m":"me.apotterhead.cheers","l":"io.github.apotterhead1.cheers"},{"m":"me.apotterhead.cheers","l":"io.github.apotterhead1.cheers.vars"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"m":"io.github.apotterhead1.cheers","l":"io.github.apotterhead1.cheers"},{"m":"io.github.apotterhead1.cheers","l":"io.github.apotterhead1.cheers.vars"}];updateSearchResults();

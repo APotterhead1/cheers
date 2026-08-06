@@ -20,7 +20,7 @@
  *
  * @since 1.0.0
  */
-module me.apotterhead.cheers {
+module io.github.apotterhead1.cheers {
     requires org.objenesis;
     
     exports io.github.apotterhead1.cheers;
