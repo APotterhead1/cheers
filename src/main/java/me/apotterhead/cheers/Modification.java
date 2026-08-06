@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06232026-07072026
+// 06232026-08052026
 
 /*
 
@@ -28,28 +28,7 @@ import java.util.List;
  */
 public interface Modification {
     /**
-     * Returns a {@code String} representation of the path to the {@link SerialObject}
-     * that this {@code Modification} is supposed to modify.
-     * <p>
-     * The path must start with {@code "root"} representing the {@code Object}
-     * that was put into the {@link Serializer}. The path then goes down the map through variable
-     * names, with each step separated by a {@code "."}.
-     * <p>
-     * An example of a valid path is
-     * {@code "root.nestedObjectVariable.nestedNestedObjectVariable"}.
-     *
-     * @return a {@code String} representation of the path to the
-     * {@code SerialObject} that this {@code Modification} is modifying
-     *
-     * @deprecated due to encouraging the inclusion of the path if necessary as a {@code String} in
-     * {@link #apply} and to discourage the use of this class in other instances.
-     */
-    
-    @Deprecated( )
-    String getPath();
-    
-    /**
-     * Modifies the {@link SerialObject} at the path given by {@link #getPath} in
+     * Modifies a {@link SerialObject} in
      * such a way that it is compatible with the latest version of the class. This
      * normally entails either adding or removing variables, changing variable datatypes,
      * or remaining variables.
