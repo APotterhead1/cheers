@@ -41,9 +41,9 @@
   
   ```xml
   <dependency>
-      <groupId>me.apotterhead</groupId>
+      <groupId>io.github.apotterhead1</groupId>
       <artifactId>cheers</artifactId>
-      <version>1.0.0</version>
+      <version>2.0.0</version>
   </dependency>
   ```
   
@@ -76,7 +76,7 @@
   }
   
   dependencies {
-      implementation("me.apotterhead:cheers:1.0.0")
+      implementation("io.github.apotterhead1:cheers:2.0.0")
   }
   ```
   
@@ -93,7 +93,7 @@
   }
   
   dependencies {
-      implementation 'me.apotterhead:cheers:1.0.0'
+      implementation 'io.github.apotterhead1:cheers:2.0.0'
   }
   ```
   
@@ -106,11 +106,11 @@
   In pom.xml:
   ```xml
   <dependency>
-      <groupId>me.apotterhead</groupId>
+      <groupId>io.github.apotterhead1</groupId>
       <artifactId>cheers</artifactId>
-      <version>1.0.0</version>
+      <version>2.0.0</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/libs/cheers-1.0.0.jar</systemPath>
+      <systemPath>${project.basedir}/libs/cheers-2.0.0.jar</systemPath>
   </dependency>
   ```
 
@@ -121,13 +121,13 @@ Download the JAR file directly from the [GitHub Releases](https://github.com/APo
   In build.gradle.kts (Kotlin DSL):
   ```kotlin
   dependencies {
-      implementation(files("libs/cheers-1.0.0.jar"))
+      implementation(files("libs/cheers-2.0.0.jar"))
   }
   ```
 or in build.gradle (Groovy DSL):
   ```groovy
   dependencies {
-      implementation files('libs/cheers-1.0.0.jar')
+      implementation files('libs/cheers-2.0.0.jar')
   }
   ```
 
@@ -136,7 +136,7 @@ or in build.gradle (Groovy DSL):
   2. In your project, open **File → Project Structure**
   3. Navigate to **Libraries** (left sidebar)
   4. Click the **+** button and select **Java**
-  5. Browse and select the `cheers-1.0.0.jar` file
+  5. Browse and select the `cheers-2.0.0.jar` file
   6. Select the modules where you want to add this library
   7. Click **Apply** and then **OK**
 
@@ -144,20 +144,20 @@ or in build.gradle (Groovy DSL):
   1. Open **File → Project Structure → Modules**
   2. Select your module and go to the **Dependencies** tab
   3. Click the **+** button, select **JARs or directories**
-  4. Navigate to and select the `cheers-1.0.0.jar` file
+  4. Navigate to and select the `cheers-2.0.0.jar` file
   5. Click **Apply** and then **OK**
 
   **For Eclipse:**
   1. Download the JAR file from the [GitHub Releases](https://github.com/APotterhead1/cheers/releases) page
   2. In your project, create a `lib` folder if you don't have one (right-click project → **New → Folder**)
-  3. Copy the `cheers-1.0.0.jar` into the `lib` folder
+  3. Copy the `cheers-2.0.0.jar` into the `lib` folder
   4. Right-click the JAR file and select **Build Path → Add to Build Path**
 
   Alternatively, if the above doesn't work:
   1. Right-click your project and select **Properties**
   2. Navigate to **Java Build Path**
   3. Go to the **Libraries** tab
-  4. Click **Add External JARs** and select the `cheers-1.0.0.jar` file
+  4. Click **Add External JARs** and select the `cheers-2.0.0.jar` file
   5. Click **Apply and Close**
 
 ## Why you may need JVM --add-opens flags
@@ -182,16 +182,16 @@ tasks.test {
 
 Add the same flags in other contexts:
 
-- Running the jar directly (after `./gradlew build`):
+- Running the jar directly:
 ```bash
 java \
-  --add-opens=java.base/java.util=ALL-UNNAMED \
-  --add-opens=java.base/java.lang=ALL-UNNAMED \
-  --add-opens=java.base/java.io=ALL-UNNAMED \
-  --add-opens=java.base/java.nio=ALL-UNNAMED \
-  --add-opens=java.base/java.util.regex=ALL-UNNAMED \
-  --add-opens=java.base/sun.nio.cs=ALL-UNNAMED \
-  --add-opens=java.base/java.nio.charset=ALL-UNNAMED \
+  --add-opens=java.base/java.util=io.github.apotterhead1.cheers \
+  --add-opens=java.base/java.lang=io.github.apotterhead1.cheers \
+  --add-opens=java.base/java.io=io.github.apotterhead1.cheers \
+  --add-opens=java.base/java.nio=io.github.apotterhead1.cheers \
+  --add-opens=java.base/java.util.regex=io.github.apotterhead1.cheers \
+  --add-opens=java.base/sun.nio.cs=io.github.apotterhead1.cheers \
+  --add-opens=java.base/java.nio.charset=io.github.apotterhead1.cheers \
   -jar build/libs/<your-artifact>.jar
 ```
 
@@ -239,7 +239,6 @@ public interface Version {
 `Modification` interface (apply changes on serialized graph):
 ```java
 public interface Modification {
-    String getPath();
     void apply(List<SerialObject> serialObjects);
 
     // helper to locate a serial object by dotted path (root...)
@@ -267,12 +266,8 @@ public class MyVersion implements Version {
                 // Add modification for 1.0 -> 1.1 upgrade
                 modifications.add(new Modification() {
                     @Override
-                    public String getPath() {
-                        return "root.obj";
-                    }
-                    @Override
                     public void apply(List<SerialObject> serialObjects) {
-                        SerialObject obj = Modification.getSerialObjectFromPath(serialObjects, getPath());
+                        SerialObject obj = Modification.getSerialObjectFromPath(serialObjects, "root.obj");
                         // add new boolean variable defaulting to false
                         obj.addVariable(new SerialPrimitive("bool", false));
                     }
@@ -286,10 +281,6 @@ public class MyVersion implements Version {
     }
 }
 ```
-
-Points about `Modification.getPath(...)`
-- Path format: dot-separated parts. The first element must be `root`. Example: `root.obj.child` or `root.arr.0` (use numeric parts for array indices — arrays are serialized as variables named "0", "1", ...).
-- If a path can't be resolved the helper throws `InvalidDeserializationInputException`. Write defensive `Modification` code and test it against real serialized strings.
 
 Best practices when writing `Modification`s
 - Use switch statement fall-through to chain modifications across versions. When upgrading from an older version, apply all necessary modifications and then fall through to return the array once you reach the current version.
