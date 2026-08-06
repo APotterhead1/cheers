@@ -1,14 +1,14 @@
 // Craig Foulkrod
-// 06082026-06302026
+// 06082026-08052026
 
 /*
 
-    Copyright (c) 2026 Craig Foulkrod
+    Copyright (c) 2026 Craig Foulkrod. All rights reserved.
     
-    License under the MIT License
+    Licensed under the MIT License
     See LICENSE file the project root for full license information
     
- */
+*/
 
 /**
  * Defines a serialization/deserialization library.
@@ -20,9 +20,9 @@
  *
  * @since 1.0.0
  */
-module me.apotterhead.cheers {
+module io.github.apotterhead1.cheers {
     requires org.objenesis;
     
-    exports me.apotterhead.cheers;
-    exports me.apotterhead.cheers.vars;
+    exports io.github.apotterhead1.cheers;
+    exports io.github.apotterhead1.cheers.vars;
 }

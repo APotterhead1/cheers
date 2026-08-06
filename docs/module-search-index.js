@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"me.apotterhead.cheers"}];updateSearchResults();
+moduleSearchIndex = [{"l":"io.github.apotterhead1.cheers"}];updateSearchResults();

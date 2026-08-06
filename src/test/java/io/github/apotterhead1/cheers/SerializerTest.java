@@ -1,0 +1,95 @@
+package io.github.apotterhead1.cheers;
+
+import io.github.apotterhead1.cheers.vars.SerialObject;
+import io.github.apotterhead1.cheers.vars.SerialPrimitive;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.github.apotterhead1.cheers.vars.*;
+
+// Craig Foulkrod
+// 06092026-06092026
+class SerializerTest {
+    
+    @Test
+    void serialize() throws IllegalAccessException {
+        TestSerialObject2 testObj2 = new TestSerialObject2();
+        testObj2.obj.setObj( testObj2 );
+        System.out.println( Serializer.serialize( testObj2, TestVersion.VERSION ) );
+
+//        List<String> lst = List.of( "Test1", "Test2", "Test3", "Test4" );
+//        System.out.println( lst );
+//        System.out.println( Serializer.serialize( lst ));
+
+//        int[] ray = { 0, 1, 2, 3, 4, 5, 6 };
+//        System.out.println( Serializer.serialize( ray ) );
+
+//        System.out.println( Serializer.serialize( TestEnum.TEST1 ) );
+
+//        System.out.println( Serializer.serialize( new TestRecord( 5, 'a', "This is a test of the emergency broadcast system" ) ) );
+    }
+    
+    public static class TestSerialObject {
+        private int a = 5;
+        private String str = "This is a test of the emergency broadcast system";
+        private boolean bool = true;
+        private TestSerialObject2 obj;
+        
+        private void setObj( TestSerialObject2 obj ) {
+            this.obj = obj;
+        }
+    }
+    
+    public static class TestSerialObject2 {
+        private TestSerialObject obj = new TestSerialObject();
+        public TestEnum en = TestEnum.TEST2;
+        
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append( "en = " ).append( en ).append( "\n" );
+            sb.append( "obj.a = " ).append( obj.a ).append( "\n" );
+            sb.append( "obj.str = " ).append( obj.str ).append( "\n" );
+            sb.append( "obj.bool = " ).append( obj.bool ).append( "\n" );
+            return sb.toString();
+        }
+    }
+    
+    public static enum TestEnum {
+        TEST1,
+        TEST2,
+        TEST3
+    }
+    
+    public record TestRecord( int i, char a, String c ) {}
+    
+    public static class TestVersion implements Version {
+        public static final TestVersion VERSION = new TestVersion();
+        
+        public String getCurrentVersion() {
+            return "1.1";
+        }
+        
+        public Modification[] getModifications( String version ) {
+            List<Modification> modifications = new ArrayList<>();
+            switch( version ) {
+                case "1.0":
+                    modifications.add( new Modification() {
+                        public String getPath() {
+                            return "root.obj";
+                        }
+                        
+                        public void apply( List<SerialObject> serialObjects ) {
+                            SerialObject obj = Modification.getSerialObjectFromPath( serialObjects, getPath() );
+                            obj.addVariable( new SerialPrimitive( "bool", false ) );
+                        }
+                    } );
+                case "1.1":
+                    return modifications.toArray( Modification[]::new );
+                default:
+                    throw Version.versionError( version );
+            }
+        }
+    }
+}
