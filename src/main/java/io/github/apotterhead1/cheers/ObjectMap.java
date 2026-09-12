@@ -32,17 +32,17 @@ public class ObjectMap {
         this.nodes = new ArrayList<>();
     }
     
-    protected void put( Object key, SerialObject value ) {
+    void put( Object key, SerialObject value ) {
         nodes.add( new Node( key, value ) );
     }
     
-    protected boolean contains( Object key ) {
+    boolean contains( Object key ) {
         for( Node node : nodes )
             if( node.key() == key ) return true;
         return false;
     }
     
-    protected SerialObject get( Object key ) {
+    SerialObject get( Object key ) {
         for( Node node : nodes )
             if( node.key() == key ) return node.value();
         return null;
