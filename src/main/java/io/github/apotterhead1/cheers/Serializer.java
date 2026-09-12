@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06082026-08052026
+// 06082026-09122026
 
 /*
 
@@ -52,7 +52,7 @@ public final class Serializer {
      *               If {@code null}, an empty {@code String} will be returned
      * @param version a {@code Version} that can be used in the future to check if
      *                modifications have been made to classes serialized
-     * @return a {@code String} representation of the original {@code Object}.
+     * @return a {@code String} representation of the original {@code Object}
      * @throws IllegalAccessException if the target module does not open to reflection
      */
     public static String serialize( Object object, Version version ) throws IllegalAccessException {
@@ -71,7 +71,22 @@ public final class Serializer {
         return sb.toString();
     }
     
-    private static SerialObject serializeObject( Object obj, ObjectMap map ) throws IllegalAccessException {
+    /**
+     * Returns a {@code SerialObject} representation of the provided {@code Object}. This is used internally to create
+     * the in between step for serialization. It is provided here to allow for its use when creating a
+     * {@link Modification}, allowing for more advanced changes beyond primitives.
+     * <p>
+     * To function correctly, the serialized class and all subclasses must be open to reflection by this module through
+     * JVM arguments. See the README file for this project for more information.
+     *
+     * @param obj the {@code Object} to be serialized into a {@code SerialObject}
+     * @param map an {@code ObjectMap} that is used to keep track of the {@code Object}s that have already been
+     *            serialized
+     * @return a {@code SerialObject} representation of the provided {@code Object}
+     * @throws IllegalAccessException if the target module does not open to reflection
+     * @since 2.1.0
+     */
+    public static SerialObject serializeObject( Object obj, ObjectMap map ) throws IllegalAccessException {
         Class<?> cls = obj.getClass();
 
         SerialObject sObj = new SerialObject( UUID.randomUUID().toString(), cls.getName() );
@@ -111,7 +126,22 @@ public final class Serializer {
         return sObj;
     }
     
-    private static SerialArray serializeArray( Object array, ObjectMap map ) throws IllegalAccessException {
+    /**
+     * Returns a {@code SerialObject} representation of the provided array {@code Object}. This is used internally to
+     * create the in between step for serialization. It is provided here to allow for its use when creating a
+     * {@link Modification}, allowing for more advanced changes beyond primitives.
+     * <p>
+     * To function correctly, the serialized class and all subclasses must be open to reflection by this module through
+     * JVM arguments. See the README file for this project for more information.
+     *
+     * @param array the array {@code Object} to be serialized into a {@code SerialObject}
+     * @param map an {@code ObjectMap} that is used to keep track of the {@code Object}s that have already been
+     *            serialized
+     * @return a {@code SerialObject} representation of the provided {@code Object}
+     * @throws IllegalAccessException if the target module does not open to reflection
+     * @since 2.1.0
+     */
+    public static SerialArray serializeArray( Object array, ObjectMap map ) throws IllegalAccessException {
         Class<?> cls = array.getClass();
         
         SerialArray sRay = new SerialArray( UUID.randomUUID().toString(), cls.getName() );

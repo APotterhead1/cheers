@@ -1,5 +1,5 @@
 // Craig Foulkrod
-// 06092026-08052026
+// 06092026-09122026
 
 /*
 
@@ -16,29 +16,42 @@ import java.util.List;
 import io.github.apotterhead1.cheers.vars.SerialObject;
 import java.util.ArrayList;
 
-class ObjectMap {
+/**
+ * {@code ObjectMap} is a custom Map that is designed to store {@link SerialObject} values with the key being the
+ * {@code Object} that they represent
+ *
+ * @since 2.1.0
+ */
+public class ObjectMap {
     private final List<Node> nodes;
     
+    /**
+     * Constructs a new, empty {@code ObjectMap}
+     */
     public ObjectMap() {
         this.nodes = new ArrayList<>();
     }
     
-    public void put( Object key, SerialObject value ) {
+    protected void put( Object key, SerialObject value ) {
         nodes.add( new Node( key, value ) );
     }
     
-    public boolean contains( Object key ) {
+    protected boolean contains( Object key ) {
         for( Node node : nodes )
             if( node.key() == key ) return true;
         return false;
     }
     
-    public SerialObject get( Object key ) {
+    protected SerialObject get( Object key ) {
         for( Node node : nodes )
             if( node.key() == key ) return node.value();
         return null;
     }
     
+    /**
+     * Returns an array of all the {@link SerialObject} values contained in this {@code ObjectMap}
+     * @return an array of all the {@link SerialObject} values contained in this {@code ObjectMap}
+     */
     public SerialObject[] getValues() {
         SerialObject[] values = new SerialObject[ nodes.size() ];
         for( int i = 0; i < nodes.size(); i++ )
