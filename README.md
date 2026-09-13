@@ -43,7 +43,7 @@
   <dependency>
       <groupId>io.github.apotterhead1</groupId>
       <artifactId>cheers</artifactId>
-      <version>2.0.0</version>
+      <version>2.1.0</version>
   </dependency>
   ```
   
@@ -76,7 +76,7 @@
   }
   
   dependencies {
-      implementation("io.github.apotterhead1:cheers:2.0.0")
+      implementation("io.github.apotterhead1:cheers:2.1.0")
   }
   ```
   
@@ -93,7 +93,7 @@
   }
   
   dependencies {
-      implementation 'io.github.apotterhead1:cheers:2.0.0'
+      implementation 'io.github.apotterhead1:cheers:2.1.0'
   }
   ```
   
@@ -108,9 +108,9 @@
   <dependency>
       <groupId>io.github.apotterhead1</groupId>
       <artifactId>cheers</artifactId>
-      <version>2.0.0</version>
+      <version>2.1.0</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/libs/cheers-2.0.0.jar</systemPath>
+      <systemPath>${project.basedir}/libs/cheers-2.1.0.jar</systemPath>
   </dependency>
   ```
 
@@ -121,13 +121,13 @@ Download the JAR file directly from the [GitHub Releases](https://github.com/APo
   In build.gradle.kts (Kotlin DSL):
   ```kotlin
   dependencies {
-      implementation(files("libs/cheers-2.0.0.jar"))
+      implementation(files("libs/cheers-2.1.0.jar"))
   }
   ```
 or in build.gradle (Groovy DSL):
   ```groovy
   dependencies {
-      implementation files('libs/cheers-2.0.0.jar')
+      implementation files('libs/cheers-2.1.0.jar')
   }
   ```
 
@@ -136,7 +136,7 @@ or in build.gradle (Groovy DSL):
   2. In your project, open **File → Project Structure**
   3. Navigate to **Libraries** (left sidebar)
   4. Click the **+** button and select **Java**
-  5. Browse and select the `cheers-2.0.0.jar` file
+  5. Browse and select the `cheers-2.1.0.jar` file
   6. Select the modules where you want to add this library
   7. Click **Apply** and then **OK**
 
@@ -144,20 +144,20 @@ or in build.gradle (Groovy DSL):
   1. Open **File → Project Structure → Modules**
   2. Select your module and go to the **Dependencies** tab
   3. Click the **+** button, select **JARs or directories**
-  4. Navigate to and select the `cheers-2.0.0.jar` file
+  4. Navigate to and select the `cheers-2.1.0.jar` file
   5. Click **Apply** and then **OK**
 
   **For Eclipse:**
   1. Download the JAR file from the [GitHub Releases](https://github.com/APotterhead1/cheers/releases) page
   2. In your project, create a `lib` folder if you don't have one (right-click project → **New → Folder**)
-  3. Copy the `cheers-2.0.0.jar` into the `lib` folder
+  3. Copy the `cheers-2.1.0.jar` into the `lib` folder
   4. Right-click the JAR file and select **Build Path → Add to Build Path**
 
   Alternatively, if the above doesn't work:
   1. Right-click your project and select **Properties**
   2. Navigate to **Java Build Path**
   3. Go to the **Libraries** tab
-  4. Click **Add External JARs** and select the `cheers-2.0.0.jar` file
+  4. Click **Add External JARs** and select the `cheers-2.1.0.jar` file
   5. Click **Apply and Close**
 
 ## Why you may need JVM --add-opens flags
@@ -284,7 +284,7 @@ public class MyVersion implements Version {
 
 Best practices when writing `Modification`s
 - Use switch statement fall-through to chain modifications across versions. When upgrading from an older version, apply all necessary modifications and then fall through to return the array once you reach the current version.
-- Keep modification logic small and limited to structural changes (adding/removing variables, renaming variables, inserting new `SerialObject`s).
+- Keep the modification logic small and limited to structural changes (adding/removing variables, renaming variables, inserting new `SerialObject`s).
 - Ensure UUID uniqueness when adding new `SerialObject` instances into the `List<SerialObject>` (use e.g. `UUID.randomUUID().toString()`).
 - Test modifications with sample serialized data representing older versions to verify a safe upgrade.
 
@@ -295,7 +295,7 @@ Best practices when writing `Modification`s
 
 ## Notes, Known Limitations, and Tips
 
-- Identity tracking: `ObjectMap` uses identity (`==`) to identify already-serialized instances so shared references and cycles are preserved. That is intentional; do not expect `.equals()` merging.
+- Identity tracking: `ObjectMap` uses identity (`==`) to identify already-serialized instances, so shared references and cycles are preserved. That is intentional; do not expect `.equals()` merging.
 - Records: deserialization supports Java records. The deserializer finds the record constructor and invokes it with deserialized components.
 - Null handling:
   - `SerialPrimitive` encodes null as type `NULL`. `Serializer.serialize(null, version)` currently returns an empty string.
